@@ -4,7 +4,7 @@
 
 Vue Trivia Game
 
-TODO: Fill out this long description.
+TODO: Fill out this description.
 
 ## Table of Contents
 
