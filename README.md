@@ -4,7 +4,7 @@
 
 Vue Trivia Game
 
-TODO: Fill out this description.
+Sasu's and Nico's Trivia Game
 
 ## Table of Contents
 
