@@ -27,6 +27,7 @@ Sasu's and Nico's Trivia Game
 ## Maintainers
 
 [@bgf122](https://github.com/bgf122)
+[@azruim]
 
 ## Contributing
 
