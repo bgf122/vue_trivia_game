@@ -1,9 +1,9 @@
 <script setup>
-import TriviaScreen from './views/TriviaScreen.vue';
+
 </script>
 
 <template>
-  <TriviaScreen />
+  <router-view></router-view>
 </template>
 
 <style scoped>
