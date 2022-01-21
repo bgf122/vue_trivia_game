@@ -8,13 +8,9 @@ export async function apiGetTriviaQuestions(amount=1, category="", difficulty=""
             throw new Error("Could not fetch questions")
         }
 
-        const { success, data, error } = await response.json()
+        const { results } = await response.json()
         
-        if (!success) {
-            throw new Error(error)
-        }
-
-        return [ null, data]
+        return [ null, results]
 
     } catch (error) {
         return [ error.message, [] ]

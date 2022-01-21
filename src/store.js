@@ -4,9 +4,9 @@ import { apiGetTriviaQuestions } from "./api/trivia";
 export default createStore({
     state: {
         questions: [],
-        amount: undefined,
-        category: undefined,
-        difficulty: undefined
+        amount: 10,
+        category: 10,
+        difficulty: "easy"
     },
     mutations: {
         setQuestions: (state, questions) => {
@@ -23,14 +23,14 @@ export default createStore({
         }
     },
     actions: {
-        async getTriviaQuestions({ commit, state}) {
-            const [error, questions] = await apiGetTriviaQuestions((state.amount, state.category, state.difficulty));
+        async getTriviaQuestions({ commit, state }) {
+            const [error, questions] = await apiGetTriviaQuestions(state.amount, state.category, state.difficulty);
 
             if (error !== null) {
                 return error;
             }
-
             commit("setQuestions", questions);
+
             return null;
         }
     }
