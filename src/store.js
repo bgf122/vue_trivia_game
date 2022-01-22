@@ -6,7 +6,8 @@ export default createStore({
         questions: [],
         amount: 10,
         category: 10,
-        difficulty: "easy"
+        difficulty: "easy",
+        answers: {}
     },
     mutations: {
         setQuestions: (state, questions) => {
@@ -20,6 +21,9 @@ export default createStore({
         },
         setDifficulty: (state, difficulty) => {
             state.difficulty = difficulty;
+        },
+        setAnswers: (state, answers) => {
+            state.answers = answers;
         }
     },
     actions: {

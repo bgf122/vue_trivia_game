@@ -1,5 +1,14 @@
 <script setup>
-    import Trivia from '../components/Trivia/Trivia.vue';
+import { onMounted } from 'vue';
+import { useStore } from 'vuex';
+import Trivia from '../components/Trivia/Trivia.vue';
+
+const store = useStore();
+
+onMounted(async () => {
+    await store.dispatch("getTriviaQuestions");
+});
+
 </script>
 
 <template>
