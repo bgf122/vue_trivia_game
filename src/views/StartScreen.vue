@@ -1,9 +1,21 @@
 <script setup>
-
-// TODO
-// Call API request
-
+import { onMounted } from 'vue';
+import { useStore } from 'vuex';
 import { reactive, ref } from "vue";
+import { apiGetCategories } from "../api/form";
+
+const store = useStore();
+
+onMounted(async () => {
+    const [error, list] = await apiGetCategories();
+
+    for (const item of list.trivia_categories) {
+        categoriesList.push(item);
+        console.log(item);
+        // TODO Display possible error message?
+    }
+});
+
 const username = ref("");
 const questions = ref(0);
 const difficulty = ref("");
@@ -12,11 +24,7 @@ const category = ref("");
 const difficultiesList = reactive([
     "Any Difficulty", "Easy", "Medium", "Hard"
 ]);
-const categoriesList = reactive([
-    "Any Category", "sports", "science", "history"
-    // TODO 
-    // Populate from API
-]);
+let categoriesList = reactive([]);
 
 const onSubmitClick = event => {
     console.log("Clicked submit");
@@ -49,11 +57,11 @@ const onSubmitClick = event => {
             <fieldset>
                 <select>
                     <option value>Choose category</option>
-                    <option v-for="item in categoriesList" :key="item">{{ item }}</option>
+                    <option v-for="item in categoriesList" :key="item.id">{{ item.name }}</option>
                 </select>
             </fieldset>
 
-            <button @click="onSubmitClick">Start</button>
+            <button @click="onSubmitClick">Start Quiz</button>
         </form>
     </main>
 </template>
