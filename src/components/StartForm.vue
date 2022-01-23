@@ -13,7 +13,6 @@ onMounted(async () => {
 
     for (const item of list.trivia_categories) {
         categoriesList.push(item);
-        console.log(item);
         // TODO Display possible error message?
     }
 });
@@ -33,12 +32,10 @@ const onDifficultyChange = event => {
 }
 
 const onCategoryChange = event => {
-    console.log(event.target.value);
     category.value = event.target.value;
 }
 
 const onStartClick = event => {
-    console.log("Clicked submit");
     if (username.value === "") {
         console.log("Enter username");
     }
