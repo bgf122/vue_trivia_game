@@ -23,7 +23,7 @@ const difficulty = ref("");
 const category = ref(0);
 
 const difficultiesList = reactive([
-    "Any Difficulty", "Easy", "Medium", "Hard"
+    "Easy", "Medium", "Hard"
 ]);
 let categoriesList = reactive([]);
 
@@ -87,13 +87,16 @@ const onStartClick = event => {
             <fieldset>
                 <select @change="onCategoryChange">
                     <option value>Choose category</option>
-                    <option v-for="item in categoriesList" :value="item.id" :key="item.id">{{ item.name }}</option>
+                    <option
+                        v-for="item in categoriesList"
+                        :value="item.id"
+                        :key="item.id"
+                    >{{ item.name }}</option>
                 </select>
             </fieldset>
 
             <button @click="onStartClick" type="button">Start Quiz</button>
         </form>
-
     </main>
 </template>
 
