@@ -12,7 +12,6 @@ onMounted(async () => {
 </script>
 
 <template>
-    <h1>Trivia</h1>
     <Trivia />
 </template>
 
