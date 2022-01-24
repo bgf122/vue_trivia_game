@@ -1,16 +1,35 @@
 import { createStore } from "vuex";
 import { apiGetTriviaQuestions } from "./api/trivia";
 
+const initUser = () => {
+    const storedUser = localStorage.getItem("user");
+    if (!storedUser) {
+        return null;
+    }
+    return storedUser;
+}
+
+// const initState = (state) => {
+//     const storedState = localStorage.getItem(state);
+//     if (!storedState) {
+//         return null;
+//     }
+//     return JSON.parse(storedState);
+// }
+
+const initData = () => {
+    const storedData = localStorage.getItem("triviaData");
+    if (!storedData) {
+        return null;
+    }
+    return JSON.parse(storedData);
+}
+
 export default createStore({
     state: {
-        username: "",
+        username: initUser(),//initState("user"),
         questions: [],
-        triviaData: {
-            amount: 10,
-            category: "",
-            difficulty: "",
-            token: undefined
-        },
+        triviaData: initData(),//initState("triviaData"),
         answers: {}
     },
     mutations: {
