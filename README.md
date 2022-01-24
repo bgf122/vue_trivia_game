@@ -28,7 +28,7 @@ $ npm install
 ## Maintainers
 
 [@bgf122](https://github.com/bgf122)
-[@azruim]
+[@azruim](https://github.com/azruim)
 
 ## Contributing
 
