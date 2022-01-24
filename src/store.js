@@ -5,9 +5,11 @@ export default createStore({
     state: {
         username: "",
         questions: [],
-        amount: 10,
-        category: 10,
-        difficulty: "easy",
+        triviaData: {
+            amount: 10,
+            category: "",
+            difficulty: ""
+        },
         answers: {}
     },
     mutations: {
@@ -17,14 +19,12 @@ export default createStore({
         setQuestions: (state, questions) => {
             state.questions = questions;
         },
-        setAmount: (state, amount) => {
-            state.amount = amount;
-        },
-        setCategory: (state, category) => {
-            state.category = category;
-        },
-        setDifficulty: (state, difficulty) => {
-            state.difficulty = difficulty;
+        setTriviaData: (state, triviaData) => {
+            state.triviaData = {
+                amount : triviaData.amount,
+                category : triviaData.category,
+                difficulty: triviaData.difficulty
+            };
         },
         setAnswers: (state, answers) => {
             state.answers = answers;
@@ -32,7 +32,7 @@ export default createStore({
     },
     actions: {
         async getTriviaQuestions({ commit, state }) {
-            const [error, questions] = await apiGetTriviaQuestions(state.amount, state.category, state.difficulty);
+            const [error, questions] = await apiGetTriviaQuestions(state.triviaData);
 
             if (error !== null) {
                 return error;
