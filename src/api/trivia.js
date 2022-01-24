@@ -9,11 +9,10 @@ export async function apiGetTriviaQuestions(triviaData = { amount : 1, category 
         }
 
         const { results } = await response.json()
-        
-        return [ null, results]
+
+        return [null, results]
 
     } catch (error) {
-        return [ error.message, [] ]
+        return [error.message, []]
     }
-    
 }

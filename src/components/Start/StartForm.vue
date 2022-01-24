@@ -2,57 +2,70 @@
 import { onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { reactive, ref } from "vue";
-import { apiGetCategories } from "../../api/form";
+import { apiGetCategories, apiGetTriviaToken } from "../../api/form";
 
 const emit = defineEmits(["quizStarted"]);
 
 const store = useStore();
 
+// Get categories from API when component is mounted.
 onMounted(async () => {
-    const [error, list] = await apiGetCategories();
-
+    const [listError, list] = await apiGetCategories();
     for (const item of list.trivia_categories) {
         categoriesList.push(item);
         // TODO Display possible error message?
     }
+
+    const [tokenError, token] = await apiGetTriviaToken();
+    triviaToken.value = token;
 });
 
 const username = ref("");
 const questions = ref(0);
 const difficulty = ref("");
 const category = ref(0);
+const triviaToken = ref("");
 
 const difficultiesList = reactive([
-    "Easy", "Medium", "Hard"
+    "Any Difficulty", "Easy", "Medium", "Hard"
 ]);
-let categoriesList = reactive([]);
+
+const categoriesList = reactive([{id: "",name: "Any Category"}]);
 
 const onDifficultyChange = event => {
-    difficulty.value = event.target.value.toLowerCase();
+    if (event.target.value === "Any Difficulty")
+        difficulty.value = "";
+    else
+        difficulty.value = event.target.value.toLowerCase();
 }
 
 const onCategoryChange = event => {
-    category.value = event.target.value;
+    if (event.target.value === "Any Category")
+        category.value = "";
+    else
+        category.value = event.target.value;
 }
 
+// Save form values to store and emit start to view.
 const onStartClick = event => {
     if (username.value === "") {
         console.log("Enter username");
+        // TODO add html element to display this.
     }
     else if (questions.value < 1) {
-        console.log("Enter questions amount");
-    }
-    else if (difficulty.value === "") {
-        console.log("Select difficulty");
+        questions.value = 1;
     }
     else if (category.value === 0) {
-        console.log("Select category")
+        category.value = "";
     }
     else {
         store.commit("setUsername", username.value);
-        store.commit("setAmount", questions.value);
-        store.commit("setDifficulty", difficulty.value);
-        store.commit("setCategory", category.value);
+        store.commit("setTriviaData", {
+            amount: questions.value, 
+            category: category.value, 
+            difficulty: difficulty.value,
+            token: triviaToken.value
+        });
         emit("quizStarted");
     }
 }
