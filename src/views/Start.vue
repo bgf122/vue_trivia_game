@@ -1,6 +1,6 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
-import StartForm from '../components/StartForm.vue';
+import StartForm from '../components/Start/StartForm.vue';
 
 const router = useRouter();
 

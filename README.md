@@ -17,6 +17,7 @@ Sasu's and Nico's Trivia Game
 ## Install
 
 ```
+$ npm install
 ```
 
 ## Usage

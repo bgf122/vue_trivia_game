@@ -2,7 +2,7 @@
 import { onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { reactive, ref } from "vue";
-import { apiGetCategories } from "../api/form";
+import { apiGetCategories } from "../../api/form";
 
 const emit = defineEmits(["quizStarted"]);
 
