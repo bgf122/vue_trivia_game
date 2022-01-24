@@ -13,7 +13,6 @@ onMounted(async () => {
     const [listError, list] = await apiGetCategories();
     for (const item of list.trivia_categories) {
         categoriesList.push(item);
-        // TODO Display possible error message?
     }
 
     const [tokenError, token] = await apiGetTriviaToken();
@@ -48,24 +47,28 @@ const onCategoryChange = event => {
 
 // Save form values to store and emit start to view.
 const onStartClick = event => {
+    const data = {
+        amount: questions.value, 
+        category: category.value, 
+        difficulty: difficulty.value,
+        token: triviaToken.value
+    }
+
+    if (data.amount < 1) {
+        data.amount = 1;
+    }
+    if (data.category === 0) {
+        data.category = "";
+    }
     if (username.value === "") {
         console.log("Enter username");
         // TODO add html element to display this.
     }
-    else if (questions.value < 1) {
-        questions.value = 1;
-    }
-    else if (category.value === 0) {
-        category.value = "";
-    }
     else {
         store.commit("setUsername", username.value);
-        store.commit("setTriviaData", {
-            amount: questions.value, 
-            category: category.value, 
-            difficulty: difficulty.value,
-            token: triviaToken.value
-        });
+        store.commit("setTriviaData", data);
+        localStorage.setItem("user", username.value);
+        localStorage.setItem("triviaData", JSON.stringify(data));
         emit("quizStarted");
     }
 }
