@@ -8,7 +8,8 @@ export default createStore({
         triviaData: {
             amount: 10,
             category: "",
-            difficulty: ""
+            difficulty: "",
+            token: undefined
         },
         answers: {}
     },
@@ -23,7 +24,8 @@ export default createStore({
             state.triviaData = {
                 amount : triviaData.amount,
                 category : triviaData.category,
-                difficulty: triviaData.difficulty
+                difficulty: triviaData.difficulty,
+                token: triviaData.token
             };
         },
         setAnswers: (state, answers) => {

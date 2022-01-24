@@ -1,8 +1,8 @@
 import { TRIVIA_BASE_URL } from "./";
 
-export async function apiGetTriviaQuestions(triviaData = { amount : 1, category : "", difficulty : ""}) {
+export async function apiGetTriviaQuestions(triviaData = { amount : 1, category : "", difficulty : "", token: ""}) {
     try {
-        const response = await fetch(`${TRIVIA_BASE_URL}amount=${triviaData.amount}&category=${triviaData.category}&difficulty=${triviaData.difficulty}`);
+        const response = await fetch(`${TRIVIA_BASE_URL}amount=${triviaData.amount}&category=${triviaData.category}&difficulty=${triviaData.difficulty}&token=${triviaData.token}`);
         
         if(!response.ok) {
             throw new Error("Could not fetch questions")

@@ -1,12 +1,15 @@
+import { CATEGORIES_URL, TOKEN_URL } from ".";
+
 export async function apiGetCategories() {
     try {
-        const response = await fetch("https://opentdb.com/api_category.php");
+        const response = await fetch(CATEGORIES_URL);
 
         if(!response.ok) {
             throw new Error("Failed to fetch categories");
         }
 
         const categories = await response.json();
+        
         return [null, categories];
     }
     catch (error) {
@@ -16,13 +19,13 @@ export async function apiGetCategories() {
 
 export async function apiGetTriviaToken() {
     try {
-        const response = await fetch("https://opentdb.com/api_token.php?command=request");
+        const response = await fetch(TOKEN_URL);
 
         if (!response.ok) {
             throw new Error("Could not fetch token");
         }
 
-        const { responseCode, responseMessage, token } = await response.json();
+        const { token } = await response.json();
 
         return [null, token];
     }
