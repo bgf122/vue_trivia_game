@@ -3,7 +3,6 @@ import { apiGetTriviaQuestions } from "./api/trivia";
 
 export default createStore({
     state: {
-        username: "",
         questions: [],
         amount: 10,
         category: 10,
@@ -11,16 +10,13 @@ export default createStore({
         answers: {}
     },
     mutations: {
-        setUsername: (state, username) => {
-            state.username = username;
-        },
         setQuestions: (state, questions) => {
             state.questions = questions;
         },
         setAmount: (state, amount) => {
             state.amount = amount;
         },
-        setCategory: (state, category) => {
+        setCategorys: (state, category) => {
             state.category = category;
         },
         setDifficulty: (state, difficulty) => {

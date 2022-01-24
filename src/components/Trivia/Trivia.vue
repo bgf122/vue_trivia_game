@@ -32,8 +32,8 @@ const handleClick = (q, a) => {
 
 onUpdated(() => {
     if (current.value >= questions.value.length) {
-        router.push("/results")
-        store.commit("setAnswers", yourAnswers.value)
+        router.push("/results");
+        store.commit("setAnswers", yourAnswers.value);
     }
 });
 
@@ -48,11 +48,11 @@ onUpdated(() => {
                 :correct="question.correct_answer"
                 @clicked="handleClick"
             >
-                {{ question.question }}
+                <span v-html="question.question"></span>
                 <p
                     v-for="answer in getAnswers(question.incorrect_answers, question.correct_answer)"
                 >
-                    <button :key="answer" @click="handleClick(question, answer)">{{ answer }}</button>
+                    <button :key="answer" @click="handleClick(question, answer)" v-html="answer"></button>
                 </p>
             </li>
         </p>
