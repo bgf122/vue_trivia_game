@@ -53,12 +53,12 @@ const isCorrect = (answer, data) => {
 }
 .questionContainer {
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
-    color: white;
     background-color: darkslategrey;
     display: flex;
     flex-direction: column;
     border-width: 2px;
     border-style: solid;
+    border-color: black;
     width: 25%;
     border-radius: 25%;
     padding: 2%;
@@ -66,6 +66,7 @@ const isCorrect = (answer, data) => {
     text-align: center;
 }
 .question {
+    color: white;
     margin: 3% 0% 5% 0%;
 }
 .answers {
@@ -76,6 +77,7 @@ const isCorrect = (answer, data) => {
     flex-wrap: wrap;
     margin: 2%;
     height: 100%;
+    
     
 }
 .answerContainer {
@@ -89,7 +91,8 @@ const isCorrect = (answer, data) => {
     font-size: large;
     font-weight: bold;
     margin: 1%;
-    overflow: hidden;   
+    overflow: hidden;
+       
 }
 .correct {
     display: flex;
@@ -116,5 +119,6 @@ const isCorrect = (answer, data) => {
 }
 span {
     padding: 2%;
+    color: white;
 }
 </style>
