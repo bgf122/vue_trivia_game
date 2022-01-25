@@ -44,7 +44,6 @@ export async function apiGetUser(user) {
         }
 
         const json = await response.json();
-        console.log("json",json)
         return [null, json];
     }
     catch (error) {
@@ -80,7 +79,6 @@ export async function apiCreateUser(username, highScore) {
 }
 
 export async function apiUpdateUser(userData) {
-    console.log("userData", userData);
     const parameters = {
         method: 'PATCH',
         headers: {
@@ -91,7 +89,6 @@ export async function apiUpdateUser(userData) {
             highScore: userData.highScore
         })
     }
-    console.log(parameters, "user id:",userData.id, "url:", `${USER_DB_BASE_URL}/${userData.id}`);
     try {
         const response = await fetch(`${USER_DB_BASE_URL}/${userData.id}`, parameters);
 
@@ -100,7 +97,6 @@ export async function apiUpdateUser(userData) {
         }
 
         const json = await response.json();
-        console.log("json",json);
         return [null, json];
     }
     catch (error) {
