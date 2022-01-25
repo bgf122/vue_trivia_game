@@ -36,7 +36,7 @@ export async function apiGetTriviaToken() {
 
 export async function apiGetUser(username) {
     try {
-        const response = await fetch(`${USER_DB_BASE_URL}?username=${user}`);
+        const response = await fetch(`${USER_DB_BASE_URL}?username=${username}`);
 
         if (!response.ok) {
             throw new Error("Could not fetch user")
