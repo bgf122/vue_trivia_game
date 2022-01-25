@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { apiGetUser, apiUpdateUser } from "./api/form";
+import { apiGetUser, apiCreateteUser } from "./api/form";
 import { apiGetTriviaQuestions } from "./api/trivia";
 
 const initUser = () => {
@@ -72,7 +72,7 @@ export default createStore({
             }
 
             if (user.length !== 1) {
-                const [error2,] = await apiUpdateUser(state.username, 0);
+                const [error2,] = await apiCreateteUser(state.username, 0);
 
                 if (error2 !== null) {
                     return error2;

@@ -51,7 +51,7 @@ export async function apiGetUser(username) {
     }
 }
 
-export async function apiUpdateUser(username, highscore) {
+export async function apiCreateteUser(username, highscore) {
     const parameters = {
         method: 'POST',
         headers: {
