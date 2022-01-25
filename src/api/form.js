@@ -1,5 +1,4 @@
 import { CATEGORIES_URL, TOKEN_URL, USER_DB_BASE_URL } from ".";
-const apiKey = "mCCrFQCflzcRNCMK+alj0mCPRlb94Nt3GH2jAJaLLu0kB4TM7+rraU8CimfYqUHh3GgpLFgyUO1oG9MoOAJrZA=="
 
 
 export async function apiGetCategories() {
