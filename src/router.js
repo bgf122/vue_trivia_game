@@ -4,7 +4,7 @@ import Trivia from "./views/Trivia.vue"
 import Results from "./views/Results.vue"
 
 const authGuard = (to, from, next) => {
-    if (!localStorage.getItem("username"))
+    if (!localStorage.getItem("user"))
         next("/");
     else
         next();
