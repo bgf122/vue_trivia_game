@@ -1,6 +1,5 @@
 import { CATEGORIES_URL, TOKEN_URL, USER_DB_BASE_URL } from ".";
 
-
 export async function apiGetCategories() {
     try {
         const response = await fetch(CATEGORIES_URL);
@@ -35,9 +34,9 @@ export async function apiGetTriviaToken() {
     }
 }
 
-export async function apiGetUser(user) {
+export async function apiGetUser(username) {
     try {
-        const response = await fetch(`${USER_DB_BASE_URL}?username=${user.username}`);
+        const response = await fetch(`${USER_DB_BASE_URL}?username=${username}`);
 
         if (!response.ok) {
             throw new Error("Could not fetch user")
