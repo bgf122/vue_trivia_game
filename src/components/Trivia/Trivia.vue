@@ -2,6 +2,7 @@
 import { computed, onUpdated, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import TriviaButtonItem from './TriviaButtonItem.vue';
 
 const router = useRouter();
 const store = useStore();
@@ -19,10 +20,10 @@ const getAnswers = (incorrect, correct) => {
 
     return array;
 };
-const handleClick = (q, a) => {
+const handleClick = (q, a, array) => {
     const answer = {
         question: q.question,
-        incorrect_answers: q.incorrect_answers,
+        allAnswers: array,
         answer: a,
         correct_answer: q.correct_answer
     };
@@ -47,9 +48,7 @@ onUpdated(() => {
         <div class="questionContainer" v-if="index === current && question !== undefined" >
             <div class="question" v-html="question.question"></div>
             <div class="answers">
-                <div class="answerContainer" v-for="answer in getAnswers(question.incorrect_answers, question.correct_answer)">
-                    <div class="answerButton" :key="answer" @click="handleClick(question, answer)" v-html="answer"></div>
-                </div>
+                <TriviaButtonItem @handleClick="handleClick" :question="question" :answers="getAnswers(question.incorrect_answers, question.correct_answer)" />
             </div>
         </div>
     </div>
@@ -94,25 +93,5 @@ onUpdated(() => {
     margin: 0% 5% 5% 5%;
     height: 100%;
     
-}
-.answerContainer {
-    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2); 
-    display: flex;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 25%;
-    width: 40%;
-    font-weight: bold;
-    margin: 1%;
-    overflow: hidden; 
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-span {
-    padding: 2%;
-}
-.answerButton {
-    margin: 3%
 }
 </style>

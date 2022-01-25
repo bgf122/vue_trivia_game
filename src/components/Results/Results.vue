@@ -30,7 +30,7 @@ const isCorrect = (answer, data) => {
         <div class="questionContainer" v-if="results !== undefined" v-for="result in results">
             <div class="question" v-html="result.question"></div>
             <div class="answers">
-            <div class="answerContainer" v-for="answer in getAnswers(result.incorrect_answers, result.correct_answer)">
+            <div class="answerContainer" v-for="answer in result.allAnswers">
                 <div v-if="isCorrect(answer, result)" class="correct" ><span v-html="answer"></span></div>
                 <div v-else-if="answer !== result.correct_answer && answer === result.answer" class="wrong" ><span v-html="answer"></span></div>
                 <div class="none" v-else ><span v-html="answer"></span></div>      
