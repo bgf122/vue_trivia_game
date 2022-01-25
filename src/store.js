@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { apiGetUser, apiCreateteUser } from "./api/form";
+import { apiGetUser, apiCreateUser } from "./api/form";
 import { apiGetTriviaQuestions } from "./api/trivia";
 
 const initStateUser = (state) => {
@@ -39,11 +39,11 @@ export default createStore({
         current: initStateInt("current")
     },
     mutations: {
-        setUser: (state, user) => {
+        setUser: (state, userData) => {
             state.user = {
-                username: user.username,
-                id: user.id,
-                highscore: user.highscore
+                username: userData.username,
+                id: userData.id,
+                highScore: userData.highScore
             };
         },
         setQuestions: (state, questions) => {
@@ -74,30 +74,25 @@ export default createStore({
         },
 
         async verifyUser({ commit, state }) {
-            const [error, user] = await apiGetUser(state.user);
-            
+            const [error, user] = await apiGetUser(state.user.username);
             if (error !== null) {
                 return error;
             }
-            console.log(user)
+            
             if (user.length === 1) {
-                localStorage.setItem("user", user)
-                commit("setUser", user)
+                commit("setUser", user[0]);
+                localStorage.setItem("user",JSON.stringify(user[0]));
             }
-
-            if (user.length !== 1) {
-                console.log(state.user)
-                const [error2, newUser] = await apiCreateteUser(state.user);
+            else {
+                const [error2, newUser] = await apiCreateUser(state.user.username, state.user.highScore);
 
                 if (error2 !== null) {
                     return error2;
                 }
-                localStorage.setItem("user", newUser)
-                commit("setUser", newUser)
-                return null;
-            }
+                commit("setUser", newUser);
+                localStorage.setItem("user",JSON.stringify(newUser));
+            } 
+            return null;
         }
-
     }
-
 });

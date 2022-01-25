@@ -52,17 +52,16 @@ export async function apiGetUser(user) {
     }
 }
 
-export async function apiCreateteUser(user) {
-    console.log(user)
+export async function apiCreateUser(username, highScore) {
     const parameters = {
         method: 'POST',
         headers: {
-            'X-API-Key': apiKey,//import.meta.env.local.VITE_API_KEY,
+            'X-API-Key': "mCCrFQCflzcRNCMK+alj0mCPRlb94Nt3GH2jAJaLLu0kB4TM7+rraU8CimfYqUHh3GgpLFgyUO1oG9MoOAJrZA==",//apiKey,//import.meta.env.local.VITE_API_KEY,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 
-            username: user.username.toLowerCase(),
-            highScore: 0
+        body: JSON.stringify({
+            username: username,
+            highScore: highScore
         })
     }
     try {
@@ -76,6 +75,6 @@ export async function apiCreateteUser(user) {
         return [null, json];
     }
     catch (error) {
-        return error.message;
+        return [error.message, null];
     }
 }

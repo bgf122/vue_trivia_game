@@ -52,7 +52,12 @@ const onStartClick = event => {
         category: category.value, 
         difficulty: difficulty.value,
         token: triviaToken.value
-    }
+    };
+    const user = {
+        username: username.value,
+        id: 0,
+        highScore: 0
+    };
 
     if (data.amount < 1) {
         data.amount = 1;
@@ -65,9 +70,9 @@ const onStartClick = event => {
         // TODO add html element to display this.
     }
     else {
-        store.commit("setUser", user.value);
+        store.commit("setUser", user);
         store.commit("setTriviaData", data);
-        localStorage.setItem("user", user.value);
+        localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("triviaData", JSON.stringify(data));
         localStorage.setItem("current", 0)
         emit("quizStarted");
