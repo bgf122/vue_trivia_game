@@ -1,6 +1,5 @@
 import { CATEGORIES_URL, TOKEN_URL, USER_DB_BASE_URL } from ".";
 
-
 export async function apiGetCategories() {
     try {
         const response = await fetch(CATEGORIES_URL);
@@ -40,11 +39,11 @@ export async function apiGetUser(user) {
         const response = await fetch(`${USER_DB_BASE_URL}?username=${user}`);
 
         if (!response.ok) {
-            throw new Error("Could not fetch user")
+            throw new Error("Could not fetch user");
         }
 
         const json = await response.json();
-        console.log("json",json)
+        console.log("json", json);
         return [null, json];
     }
     catch (error) {
@@ -56,19 +55,19 @@ export async function apiCreateUser(username, highScore) {
     const parameters = {
         method: 'POST',
         headers: {
-            'X-API-Key': "mCCrFQCflzcRNCMK+alj0mCPRlb94Nt3GH2jAJaLLu0kB4TM7+rraU8CimfYqUHh3GgpLFgyUO1oG9MoOAJrZA==",//apiKey,//import.meta.env.local.VITE_API_KEY,
+            'X-API-Key': import.meta.env.API_KEY, //apiKey,//import.meta.env.local.VITE_API_KEY,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             username: username,
             highScore: highScore
         })
-    }
+    };
     try {
         const response = await fetch(USER_DB_BASE_URL, parameters);
 
         if (!response.ok) {
-            throw new Error("Could not fetch user")
+            throw new Error("Could not fetch user");
         }
 
         const json = await response.json();
@@ -87,21 +86,20 @@ export async function apiUpdateUser(userData) {
             'X-API-Key': "mCCrFQCflzcRNCMK+alj0mCPRlb94Nt3GH2jAJaLLu0kB4TM7+rraU8CimfYqUHh3GgpLFgyUO1oG9MoOAJrZA==",//apiKey,//import.meta.env.local.VITE_API_KEY,
             'Content-Type': 'application/json'
         },
-        body: {//JSON.stringify({
+        body: JSON.stringify({
             highScore: userData.highScore
-        //})
-        }
-    }
-    console.log(parameters, "user id:",userData.id, "url:", `${USER_DB_BASE_URL}/${userData.id}`);
+        })
+    };
+    console.log(parameters, "user id:", userData.id, "url:", `${USER_DB_BASE_URL}/${userData.id}`);
     try {
-        const response = await fetch(`${USER_DB_BASE_URL}/${userData.id}`);
+        const response = await fetch(`${USER_DB_BASE_URL}/${userData.id}`, parameters);
 
         if (!response.ok) {
-            throw new Error("Could not fetch user")
+            throw new Error("Could not fetch user");
         }
 
         const json = await response.json();
-        console.log("json",json);
+        console.log("json", json);
         return [null, json];
     }
     catch (error) {
