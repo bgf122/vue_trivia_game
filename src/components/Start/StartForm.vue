@@ -67,8 +67,9 @@ const onStartClick = event => {
     else {
         store.commit("setUsername", username.value);
         store.commit("setTriviaData", data);
-        localStorage.setItem("user", username.value);
+        localStorage.setItem("username", username.value);
         localStorage.setItem("triviaData", JSON.stringify(data));
+        localStorage.setItem("current", 0)
         emit("quizStarted");
     }
 }

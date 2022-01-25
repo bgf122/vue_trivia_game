@@ -2,10 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import Start from "./views/Start.vue"
 import Trivia from "./views/Trivia.vue"
 import Results from "./views/Results.vue"
-import store from "./store";
 
 const authGuard = (to, from, next) => {
-    if (!store.state.username)
+    if (!localStorage.getItem("username"))
         next("/");
     else
         next();

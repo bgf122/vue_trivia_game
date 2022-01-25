@@ -6,16 +6,16 @@ import TriviaButtonItem from './TriviaButtonItem.vue';
 
 const router = useRouter();
 const store = useStore();
-const current = ref(0);
+const current = ref(localStorage.getItem("current"))
 const questions = computed(() => store.state.questions);
-const yourAnswers = ref([]);
+const yourAnswers = computed(() => store.state.answers);
 
-const getAnswers = (incorrect, correct) => {
+const getAnswers = (question) => {
     let array = [];
-    incorrect.forEach(answer => {
+    question.incorrect_answers.forEach(answer => {
         array.push(answer);
     });
-    array.push(correct);
+    array.push(question.correct_answer);
     array.sort(() => Math.random() - 0.5);
 
     return array;
@@ -29,6 +29,8 @@ const handleClick = (q, a, array) => {
     };
     yourAnswers.value.push(answer);
     current.value++;
+    localStorage.setItem("current", current.value)
+    localStorage.setItem("answers", JSON.stringify(yourAnswers.value))
 };
 
 onUpdated(() => {
@@ -42,21 +44,20 @@ onUpdated(() => {
 
 <template>
 <div class="container">
-
-</div>
-    <div class="triviaContainer" v-for="question, index in questions">
-        <div class="questionContainer" v-if="index === current && question !== undefined" >
+    <div class="triviaContainer" v-for="question, index in questions" :key="index">
+        <div class="questionContainer" v-if="index == current && question.question !== undefined" >
             <div class="question" v-html="question.question"></div>
             <div class="answers">
-                <TriviaButtonItem @handleClick="handleClick" :question="question" :answers="getAnswers(question.incorrect_answers, question.correct_answer)" />
+                <TriviaButtonItem v-if="question !== undefined" @handleClick="handleClick" :question="question" :answers="getAnswers(question)" />
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <style scoped>
 .container {
-    margin: 15%;
+    margin: 10%;
 }
 .triviaContainer {
     font-size: 35px;
@@ -76,7 +77,7 @@ onUpdated(() => {
     flex-direction: column;
     border-width: 2px;
     border-style: solid;
-    width: 50%;
+    width: 100%;
     border-radius: 25%;
     margin: auto;
     text-align: center;

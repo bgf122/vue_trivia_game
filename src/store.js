@@ -1,36 +1,37 @@
 import { createStore } from "vuex";
 import { apiGetTriviaQuestions } from "./api/trivia";
 
-const initUser = () => {
-    const storedUser = localStorage.getItem("user");
-    if (!storedUser) {
-        return null;
+const initState = (state) => {
+    const storedState = localStorage.getItem(state);
+    if (!storedState) {
+        return "";
     }
-    return storedUser;
+    return storedState;
 }
 
-// const initState = (state) => {
-//     const storedState = localStorage.getItem(state);
-//     if (!storedState) {
-//         return null;
-//     }
-//     return JSON.parse(storedState);
-// }
-
-const initData = () => {
-    const storedData = localStorage.getItem("triviaData");
+const initStateObj = (state) => {
+    const storedData = localStorage.getItem(state);
     if (!storedData) {
-        return null;
+        return [];
     }
     return JSON.parse(storedData);
 }
 
+const initStateInt = (state) => {
+    const storedState = localStorage.getItem(state);
+    if (!storedState) {
+        return 0;
+    }
+    return storedState;
+}
+
 export default createStore({
     state: {
-        username: initUser(),//initState("user"),
-        questions: [],
-        triviaData: initData(),//initState("triviaData"),
-        answers: {}
+        username: initState("username"),
+        questions: initStateObj("questions"),
+        triviaData: initStateObj("triviaData"),
+        answers: initStateObj("answers"),
+        current: initStateInt("current")
     },
     mutations: {
         setUsername: (state, username) => {

@@ -10,6 +10,9 @@ export async function apiGetTriviaQuestions(triviaData = { amount : 1, category 
 
         const { results } = await response.json()
 
+        localStorage.setItem("current", 0)
+        localStorage.setItem("questions", JSON.stringify(results))
+
         return [null, results]
 
     } catch (error) {

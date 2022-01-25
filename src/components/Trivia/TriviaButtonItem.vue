@@ -22,8 +22,8 @@ const handleAnswer = (question, answer, answers) => {
 </script>
 
 <template>
-    <div class="answerContainer" v-for="answer in answers">
-        <div class="answerButton" :key="answer" @click="handleAnswer(question, answer, answers)" v-html="answer"></div>
+    <div class="answerContainer" v-for="answer in answers" @click="handleAnswer(question, answer, answers)">
+        <div class="answerButton" :key="answer" v-html="answer"></div>
     </div>
 </template>
 

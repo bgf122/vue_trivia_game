@@ -4,23 +4,8 @@ import { useStore } from 'vuex';
 
 const store = useStore()
 const results = computed(() => store.state.answers);
-
-const getAnswers = (incorrect, correct) => {
-    let array = [];
-    incorrect.forEach(answer => {
-        array.push(answer);
-    });
-    array.push(correct);
-    array.sort(() => Math.random() - 0.5);
-
-    return array;
-};
-
-const isCorrect = (answer, data) => {
-    if (answer === data.correct_answer) {
-        return true
-    }
-    return false
+if (results === []) {
+    results = localStorage.getItem("answers")
 }
 
 </script>
@@ -31,11 +16,14 @@ const isCorrect = (answer, data) => {
             <div class="question" v-html="result.question"></div>
             <div class="answers">
             <div class="answerContainer" v-for="answer in result.allAnswers">
-                <div v-if="isCorrect(answer, result)" class="correct" ><span v-html="answer"></span></div>
+                <div v-if="answer === result.correct_answer" class="correct" ><span v-html="answer"></span></div>
                 <div v-else-if="answer !== result.correct_answer && answer === result.answer" class="wrong" ><span v-html="answer"></span></div>
                 <div class="none" v-else ><span v-html="answer"></span></div>      
             </div>
             </div>
+        </div>
+        <div class="replayContainer">
+
         </div>
     </div>
 </template>
