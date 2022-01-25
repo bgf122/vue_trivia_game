@@ -73,7 +73,7 @@ export default createStore({
             }
 
             if (user.length !== 1) {
-                const [error2,] = await apiCreateteUser(state.username, 0);
+                const [error2] = await apiCreateteUser(state.username, 0);
 
                 if (error2 !== null) {
                     return error2;

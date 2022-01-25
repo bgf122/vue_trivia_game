@@ -1,4 +1,6 @@
 import { CATEGORIES_URL, TOKEN_URL, USER_DB_BASE_URL } from ".";
+const apiKey = "mCCrFQCflzcRNCMK+alj0mCPRlb94Nt3GH2jAJaLLu0kB4TM7+rraU8CimfYqUHh3GgpLFgyUO1oG9MoOAJrZA=="
+
 
 export async function apiGetCategories() {
     try {
@@ -58,10 +60,10 @@ export async function apiCreateteUser(username, highscore) {
             'X-API-Key': apiKey,//import.meta.env.local.VITE_API_KEY,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
+        body: {
             username: username,
             highScore: highscore
-        })
+        }
     }
     try {
         const response = await fetch(USER_DB_BASE_URL, parameters);

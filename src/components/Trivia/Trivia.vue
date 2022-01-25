@@ -31,12 +31,12 @@ const handleClick = (q, a, array) => {
     current.value++;
     localStorage.setItem("current", current.value)
     localStorage.setItem("answers", JSON.stringify(yourAnswers.value))
+    store.commit("setAnswers", yourAnswers.value);
 };
 
 onUpdated(() => {
     if (current.value >= questions.value.length) {
         router.push("/results");
-        store.commit("setAnswers", yourAnswers.value);
     }
 });
 

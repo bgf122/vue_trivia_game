@@ -9,11 +9,13 @@ onMounted(async () => {
     if (localStorage.getItem("questions") !== null) {
         if (parseInt(localStorage.getItem("current")) > localStorage.getItem("questions").length) {
             await store.dispatch("getTriviaQuestions");
-        } else {            
-            store.commit("setQuestions", JSON.parse(localStorage.getItem("questions")))   
+        } else {   
+            let questions = localStorage.getItem("questions")
+            if (questions == "") await store.dispatch("getTriviaQuestions");
+            else store.commit("setQuestions", JSON.parse(questions)) 
+              
         }  
     } else {
-        console.log("else")
         await store.dispatch("getTriviaQuestions");
     }
 });
