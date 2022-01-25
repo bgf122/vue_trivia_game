@@ -1,7 +1,8 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { apiUpdateUser } from "../../api/form";
 
 const router = useRouter();
 const store = useStore();
@@ -9,6 +10,24 @@ const results = computed(() => store.state.answers);
 if (results === []) {
     results = localStorage.getItem("answers");
 }
+
+onMounted( () => {
+    console.log("mounted");
+    let newHighScore = 0;
+    for (let i = 0; i < results.value.length; i++) {
+        console.log(results.value[i].answer,"vs",results.value[i].correct_answer);
+        if (results.value[i].answer === results.value[i].correct_answer) {
+            newHighScore += 10;
+        }
+    }
+    if (newHighScore > store.state.user.highScore) {
+    store.commit("setHighScore", newHighScore);
+    const updatedUser = store.state.user;
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+    console.log("high score",newHighScore);
+    apiUpdateUser(updatedUser);
+    }
+})
 
 const handleNewGame = () => {
     localStorage.setItem("user", {})

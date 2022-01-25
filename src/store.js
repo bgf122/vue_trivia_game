@@ -59,6 +59,9 @@ export default createStore({
         },
         setAnswers: (state, answers) => {
             state.answers = answers;
+        },
+        setHighScore: (state, highScore) => {
+            state.user.highScore = highScore
         }
     },
     actions: {
@@ -78,19 +81,20 @@ export default createStore({
             if (error !== null) {
                 return error;
             }
-            
+            console.log("userlen", user);
             if (user.length === 1) {
                 commit("setUser", user[0]);
                 localStorage.setItem("user",JSON.stringify(user[0]));
             }
             else {
-                const [error2, newUser] = await apiCreateUser(state.user.username, state.user.highScore);
+                console.log("Ei tänne");
+                // const [error2, newUser] = await apiCreateUser(state.user.username, state.user.highScore);
 
-                if (error2 !== null) {
-                    return error2;
-                }
-                commit("setUser", newUser);
-                localStorage.setItem("user",JSON.stringify(newUser));
+                // if (error2 !== null) {
+                //     return error2;
+                // }
+                // commit("setUser", newUser);
+                // localStorage.setItem("user",JSON.stringify(newUser));
             } 
             return null;
         }
