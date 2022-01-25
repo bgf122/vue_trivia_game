@@ -43,7 +43,6 @@ export async function apiGetUser(user) {
         }
 
         const json = await response.json();
-        console.log("json", json);
         return [null, json];
     }
     catch (error) {
@@ -71,6 +70,7 @@ export async function apiCreateUser(username, highScore) {
         }
 
         const json = await response.json();
+
         return [null, json];
     }
     catch (error) {
@@ -79,18 +79,16 @@ export async function apiCreateUser(username, highScore) {
 }
 
 export async function apiUpdateUser(userData) {
-    console.log("userData", userData);
     const parameters = {
         method: 'PATCH',
         headers: {
-            'X-API-Key': "mCCrFQCflzcRNCMK+alj0mCPRlb94Nt3GH2jAJaLLu0kB4TM7+rraU8CimfYqUHh3GgpLFgyUO1oG9MoOAJrZA==",//apiKey,//import.meta.env.local.VITE_API_KEY,
+            'X-API-Key': import.meta.env.API_KEY,//apiKey,//import.meta.env.local.VITE_API_KEY,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             highScore: userData.highScore
         })
-    };
-    console.log(parameters, "user id:", userData.id, "url:", `${USER_DB_BASE_URL}/${userData.id}`);
+    }
     try {
         const response = await fetch(`${USER_DB_BASE_URL}/${userData.id}`, parameters);
 
@@ -99,7 +97,6 @@ export async function apiUpdateUser(userData) {
         }
 
         const json = await response.json();
-        console.log("json", json);
         return [null, json];
     }
     catch (error) {
