@@ -19,7 +19,7 @@ onMounted(async () => {
     triviaToken.value = token;
 });
 
-const username = ref("");
+const user = ref({});
 const questions = ref(0);
 const difficulty = ref("");
 const category = ref(0);
@@ -65,9 +65,9 @@ const onStartClick = event => {
         // TODO add html element to display this.
     }
     else {
-        store.commit("setUsername", username.value);
+        store.commit("setUser", user.value);
         store.commit("setTriviaData", data);
-        localStorage.setItem("username", username.value);
+        localStorage.setItem("user", user.value);
         localStorage.setItem("triviaData", JSON.stringify(data));
         localStorage.setItem("current", 0)
         emit("quizStarted");
@@ -79,7 +79,7 @@ const onStartClick = event => {
     <form>
         <fieldset>
             <label for="username">Username</label>
-            <input type="text" id="username" v-model="username" />
+            <input type="text" id="username" v-model="user.username" />
         </fieldset>
 
         <fieldset>

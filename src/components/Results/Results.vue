@@ -11,7 +11,7 @@ if (results === []) {
 }
 
 const handleNewGame = () => {
-    localStorage.setItem("username", "")
+    localStorage.setItem("user", {})
     localStorage.setItem("answers", [])
     localStorage.setItem("triviaData", [])
     localStorage.setItem("current", 0)

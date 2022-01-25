@@ -36,16 +36,15 @@ export async function apiGetTriviaToken() {
     }
 }
 
-export async function apiGetUser(username) {
+export async function apiGetUser(user) {
     try {
-        const response = await fetch(`${USER_DB_BASE_URL}?username=${username}`);
+        const response = await fetch(`${USER_DB_BASE_URL}?username=${user.username}`);
 
         if (!response.ok) {
             throw new Error("Could not fetch user")
         }
 
         const json = await response.json();
-
         return [null, json];
     }
     catch (error) {
@@ -53,27 +52,28 @@ export async function apiGetUser(username) {
     }
 }
 
-export async function apiCreateteUser(username, highscore) {
+export async function apiCreateteUser(user) {
+    console.log(user)
     const parameters = {
         method: 'POST',
         headers: {
             'X-API-Key': apiKey,//import.meta.env.local.VITE_API_KEY,
             'Content-Type': 'application/json'
         },
-        body: {
-            username: username,
-            highScore: highscore
-        }
+        body: JSON.stringify({ 
+            username: user.username.toLowerCase(),
+            highScore: 0
+        })
     }
     try {
         const response = await fetch(USER_DB_BASE_URL, parameters);
-        console.log(response);
 
         if (!response.ok) {
             throw new Error("Could not fetch user")
         }
 
-        return null;
+        const json = await response.json();
+        return [null, json];
     }
     catch (error) {
         return error.message;

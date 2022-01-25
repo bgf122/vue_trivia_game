@@ -2,10 +2,14 @@ import { createStore } from "vuex";
 import { apiGetUser, apiCreateteUser } from "./api/form";
 import { apiGetTriviaQuestions } from "./api/trivia";
 
-const initState = (state) => {
+const initStateUser = (state) => {
     const storedState = localStorage.getItem(state);
     if (!storedState) {
-        return "";
+        return { 
+            username: "",
+            id: undefined,
+            highscore: undefined
+        };
     }
     return storedState;
 }
@@ -28,15 +32,19 @@ const initStateInt = (state) => {
 
 export default createStore({
     state: {
-        username: initState("username"),
+        user: initStateUser("user"),
         questions: initStateObj("questions"),
         triviaData: initStateObj("triviaData"),
         answers: initStateObj("answers"),
         current: initStateInt("current")
     },
     mutations: {
-        setUsername: (state, username) => {
-            state.username = username;
+        setUser: (state, user) => {
+            state.user = {
+                username: user.username,
+                id: user.id,
+                highscore: user.highscore
+            };
         },
         setQuestions: (state, questions) => {
             state.questions = questions;
@@ -65,20 +73,28 @@ export default createStore({
             return null;
         },
 
-        async verifyUser({ state }) {
-            const [error, user] = await apiGetUser(state.username);
-
+        async verifyUser({ commit, state }) {
+            const [error, user] = await apiGetUser(state.user);
+            
             if (error !== null) {
                 return error;
             }
+            console.log(user)
+            if (user.length === 1) {
+                localStorage.setItem("user", user)
+                commit("setUser", user)
+            }
 
             if (user.length !== 1) {
-                const [error2] = await apiCreateteUser(state.username, 0);
+                console.log(state.user)
+                const [error2, newUser] = await apiCreateteUser(state.user);
 
                 if (error2 !== null) {
                     return error2;
                 }
-            return null;
+                localStorage.setItem("user", newUser)
+                commit("setUser", newUser)
+                return null;
             }
         }
 
