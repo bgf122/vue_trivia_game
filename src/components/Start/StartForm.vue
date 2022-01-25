@@ -20,7 +20,7 @@ onMounted(async () => {
 });
 
 const user = ref({});
-const questions = ref(0);
+const questions = ref(1);
 const difficulty = ref("");
 const category = ref(0);
 const triviaToken = ref("");
@@ -81,35 +81,87 @@ const onStartClick = event => {
 </script>
 
 <template>
+<div class="container">
     <form>
-        <fieldset>
-            <label for="username">Username</label>
-            <input type="text" id="username" v-model="user.username" />
-        </fieldset>
-
-        <fieldset>
-            <label for="questions">Number of questions</label>
-            <input type="number" min="1" id="questions" v-model="questions" />
-        </fieldset>
-
-        <fieldset>
-            <select @change="onDifficultyChange">
-                <option value>Choose difficulty</option>
-                <option v-for="item in difficultiesList" :key="item">{{ item }}</option>
-            </select>
-        </fieldset>
-
-        <fieldset>
-            <select @change="onCategoryChange">
-                <option value>Choose category</option>
-                <option
-                    v-for="item in categoriesList"
-                    :value="item.id"
-                    :key="item.id"
-                >{{ item.name }}</option>
-            </select>
-        </fieldset>
-
-        <button @click="onStartClick" type="button">Start Quiz</button>
+        <div class="formContainer">
+            <div>Username</div>
+            <fieldset>
+                <input type="text" id="username" v-model="user.username" placeholder=""/>
+            </fieldset>
+            <div>Number of questions</div>
+            <fieldset>
+                <input type="number" min="1" id="questions" v-model="questions" />
+            </fieldset>
+            <fieldset>
+                <select @change="onDifficultyChange">
+                    <option value>Choose difficulty</option>
+                    <option v-for="item in difficultiesList" :key="item">{{ item }}</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <select @change="onCategoryChange">
+                    <option value>Choose category</option>
+                    <option
+                        v-for="item in categoriesList"
+                        :value="item.id"
+                        :key="item.id"
+                    >{{ item.name }}</option>
+                </select>
+            </fieldset>
+            <div class="button" @click="onStartClick">Start Quiz</div>
+        </div>
     </form>
+</div>
 </template>
+<style scoped>
+.container { 
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+}
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2);
+    background-color: darkslategrey;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 25%;
+    margin: 1%;
+    text-align: center;
+    min-width: 600px;
+    min-height: 350px;
+}
+fieldset {
+    display: flex;
+    border: 0;
+    justify-content: center;
+}
+input {
+    display: flex;
+    border-radius: 25%;
+    height: 30px;
+    text-align: center;
+    width: 150px;
+}
+select {
+    min-width: 150px;
+    display: flex;
+    border-radius: 25%;
+    height: 30px;
+    text-align: center;
+}
+div {
+    color: white;
+    text-align: center;
+    text-shadow: 0px 3px 3px black;
+}
+.button {
+    margin-top: 2%;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+}
+</style>

@@ -13,10 +13,7 @@ const handleQuizStart = async () => {
 </script>
 
 <template>
-    <main>
-        <h1>Start Page</h1>
-        <StartForm @quizStarted="handleQuizStart" />
-    </main>
+    <StartForm @quizStarted="handleQuizStart" />
 </template>
 
 <style scoped>
