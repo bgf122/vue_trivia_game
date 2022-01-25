@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import { apiGetUser, apiCreateteUser } from "./api/form";
 import { apiGetTriviaQuestions } from "./api/trivia";
 
 const initState = (state) => {
@@ -42,8 +43,8 @@ export default createStore({
         },
         setTriviaData: (state, triviaData) => {
             state.triviaData = {
-                amount : triviaData.amount,
-                category : triviaData.category,
+                amount: triviaData.amount,
+                category: triviaData.category,
                 difficulty: triviaData.difficulty,
                 token: triviaData.token
             };
@@ -62,6 +63,25 @@ export default createStore({
             commit("setQuestions", questions);
 
             return null;
+        },
+
+        async verifyUser({ state }) {
+            const [error, user] = await apiGetUser(state.username);
+
+            if (error !== null) {
+                return error;
+            }
+
+            if (user.length !== 1) {
+                const [error2,] = await apiCreateteUser(state.username, 0);
+
+                if (error2 !== null) {
+                    return error2;
+                }
+            return null;
+            }
         }
+
     }
+
 });
