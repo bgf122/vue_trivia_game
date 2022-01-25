@@ -36,7 +36,7 @@ export async function apiGetTriviaToken() {
 
 export async function apiGetUser(username) {
     try {
-        const response = await fetch(`${USER_DB_BASE_URL}?username=${username}`);
+        const response = await fetch(`${USER_DB_BASE_URL}?username=${user}`);
 
         if (!response.ok) {
             throw new Error("Could not fetch user")
@@ -64,6 +64,32 @@ export async function apiCreateUser(username, highScore) {
     }
     try {
         const response = await fetch(USER_DB_BASE_URL, parameters);
+
+        if (!response.ok) {
+            throw new Error("Could not fetch user")
+        }
+
+        const json = await response.json();
+        return [null, json];
+    }
+    catch (error) {
+        return [error.message, null];
+    }
+}
+
+export async function apiUpdateUser(userData) {
+    const parameters = {
+        method: 'PATCH',
+        headers: {
+            'X-API-Key': "mCCrFQCflzcRNCMK+alj0mCPRlb94Nt3GH2jAJaLLu0kB4TM7+rraU8CimfYqUHh3GgpLFgyUO1oG9MoOAJrZA==",//apiKey,//import.meta.env.local.VITE_API_KEY,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            highScore: userData.highScore
+        })
+    }
+    try {
+        const response = await fetch(`${USER_DB_BASE_URL}/${userData.id}`, parameters);
 
         if (!response.ok) {
             throw new Error("Could not fetch user")

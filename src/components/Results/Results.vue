@@ -1,13 +1,54 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { apiUpdateUser } from "../../api/form";
 
 const router = useRouter();
 const store = useStore();
 const results = computed(() => store.state.answers);
+let scoreLabel = ref("");
+let highScoreLabel = ref("");
 if (results === []) {
     results = localStorage.getItem("answers");
+}
+
+onMounted(() => {
+
+    let highScore = store.state.user.highScore;
+    let score = calculateScore();
+    scoreLabel.value = "New Score: " + score.toString();
+
+    if (!localStorage.getItem("oldScore")) { // If first pass.
+        localStorage.setItem("oldScore", highScore);
+
+        if (score > highScore) {
+            store.commit("setHighScore", score);
+
+            const updatedUser = store.state.user;
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+            apiUpdateUser(updatedUser);
+
+            scoreLabel.value = "New High Score: " + score.toString();
+        }
+    }
+    else { // Else API has been updated already.
+        highScore = localStorage.getItem("oldScore");
+
+        if (score > highScore)
+            scoreLabel.value = "New High Score: " + score.toString();
+    }
+    highScoreLabel.value = "High Score: " + highScore.toString();
+})
+
+const calculateScore = () => {
+    let highScore = 0;
+    for (let i = 0; i < results.value.length; i++) {
+        if (results.value[i].answer === results.value[i].correct_answer) {
+            highScore += 10;
+        }
+    }
+    return highScore;
 }
 
 const handleNewGame = () => {
@@ -16,6 +57,7 @@ const handleNewGame = () => {
     localStorage.setItem("triviaData", [])
     localStorage.setItem("current", 0)
     localStorage.setItem("questions", [])
+    localStorage.removeItem("oldScore");
     store.commit("setAnswers", []);
     router.push("/");
 };
@@ -24,6 +66,7 @@ const handleReplay = () => {
     localStorage.setItem("answers", [])
     localStorage.setItem("current", 0)
     localStorage.setItem("questions", [])
+    localStorage.removeItem("oldScore");
     store.commit("setAnswers", []);
     router.push("/trivia");
 }
@@ -55,6 +98,8 @@ const handleReplay = () => {
         <div class="questionContainer">
             <div class="question"></div>
             <div class="answers">
+                <span v-html="scoreLabel"></span>
+                <span v-html="highScoreLabel"></span>
                 <div @click="handleReplay()" class="answerContainer">
                     <span class="none">Replay with new Questions</span>
                 </div>
@@ -138,6 +183,12 @@ const handleReplay = () => {
     align-items: center;
     justify-content: center;
 }
+
+.score {
+    margin: 0px;
+    padding-bottom: 2vh;
+}
+
 span {
     padding: 2%;
     color: white;

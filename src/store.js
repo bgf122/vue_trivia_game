@@ -5,7 +5,7 @@ import { apiGetTriviaQuestions } from "./api/trivia";
 const initStateUser = (state) => {
     const storedState = localStorage.getItem(state);
     if (!storedState) {
-        return { 
+        return {
             username: "",
             id: undefined,
             highscore: undefined
@@ -59,6 +59,9 @@ export default createStore({
         },
         setAnswers: (state, answers) => {
             state.answers = answers;
+        },
+        setHighScore: (state, highScore) => {
+            state.user.highScore = highScore
         }
     },
     actions: {
@@ -78,10 +81,9 @@ export default createStore({
             if (error !== null) {
                 return error;
             }
-            
             if (user.length === 1) {
                 commit("setUser", user[0]);
-                localStorage.setItem("user",JSON.stringify(user[0]));
+                localStorage.setItem("user", JSON.stringify(user[0]));
             }
             else {
                 const [error2, newUser] = await apiCreateUser(state.user.username, state.user.highScore);
@@ -90,8 +92,8 @@ export default createStore({
                     return error2;
                 }
                 commit("setUser", newUser);
-                localStorage.setItem("user",JSON.stringify(newUser));
-            } 
+                localStorage.setItem("user", JSON.stringify(newUser));
+            }
             return null;
         }
     }
