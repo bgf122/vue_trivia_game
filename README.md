@@ -6,6 +6,9 @@ Vue Trivia Game
 
 Sasu's and Nico's Trivia Game
 
+Figma design:
+![Figma Design](component_tree.png)
+
 ## Table of Contents
 
 - [Install](#install)
