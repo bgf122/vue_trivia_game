@@ -17,7 +17,7 @@ onMounted(() => {
 
     let highScore = store.state.user.highScore;
     let score = calculateScore();
-    scoreLabel.value = "New Score: " + score.toString();
+    scoreLabel.value = "Score: " + score.toString();
 
     if (!localStorage.getItem("oldScore")) { // If first pass.
         localStorage.setItem("oldScore", highScore);
@@ -98,8 +98,10 @@ const handleReplay = () => {
         <div class="questionContainer">
             <div class="question"></div>
             <div class="answers">
-                <span v-html="scoreLabel"></span>
-                <span v-html="highScoreLabel"></span>
+                <div class="score"> 
+                    <span v-html="scoreLabel"></span>
+                    <span v-html="highScoreLabel"></span>
+                </div>
                 <div @click="handleReplay()" class="answerContainer">
                     <span class="none">Replay with new Questions</span>
                 </div>
@@ -185,7 +187,9 @@ const handleReplay = () => {
 }
 
 .score {
-    margin: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     padding-bottom: 2vh;
 }
 
