@@ -16,13 +16,13 @@ Sasu's and Nico's Trivia Game
 
 ## Install
 
+- setup noroff API for users according to instructions (https://github.com/dewald-els/noroff-assignment-api)
+- setup .env file in your project root directory and insert API_KEY = {value} according to the noroff API instructions
+
 ```
 $ npm install
-```
-
-## Usage
-
-```
+$ npm run build
+$ npm run preview
 ```
 
 ## Maintainers
